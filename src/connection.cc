@@ -344,4 +344,21 @@ NAN_METHOD(Connection::NodeOnEvent) {
   info.GetReturnValue().Set(Nan::True());
 }
 
+// Node methods
+NAN_METHOD(Connection::NodeRemoveEvent) {
+  Nan::HandleScope scope;
+
+  if (info.Length() < 1 || !info[0]->IsFunction()) {
+    // Just throw an exception
+    return Nan::ThrowError("Need to specify a callback");
+  }
+
+  Connection* obj = ObjectWrap::Unwrap<Connection>(info.This());
+
+  v8::Local<v8::Function> cb = info[0].As<v8::Function>();
+  obj->m_event_cb.dispatcher.RemoveCallback(cb);
+
+  info.GetReturnValue().Set(Nan::True());
+}
+
 }  // namespace NodeKafka

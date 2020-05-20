@@ -34,6 +34,7 @@ class Dispatcher {
   ~Dispatcher();
   void Dispatch(const int, v8::Local<v8::Value> []);
   void AddCallback(v8::Local<v8::Function>);
+  void RemoveCallback(v8::Local<v8::Function>);
   bool HasCallbacks();
   virtual void Flush() = 0;
   void Execute();

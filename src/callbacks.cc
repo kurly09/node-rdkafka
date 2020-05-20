@@ -111,6 +111,16 @@ void Dispatcher::AddCallback(v8::Local<v8::Function> func) {
   callbacks.push_back(value);
 }
 
+void Dispatcher::RemoveCallback(v8::Local<v8::Function> func) {
+  for (size_t i=0; i < callbacks.size(); i++) {
+    if (callbacks[i] == func) {
+      callbacks[i].Reset();
+      callbacks.erase(callbacks.begin() + i);
+      break;
+    }
+  }
+}
+
 event_t::event_t(const RdKafka::Event &event) {
   message = "";
   fac = "";

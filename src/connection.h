@@ -85,6 +85,7 @@ class Connection : public Nan::ObjectWrap {
   RdKafka::Handle* m_client;
 
   static NAN_METHOD(NodeOnEvent);
+  static NAN_METHOD(NodeRemoveEvent);
   static NAN_METHOD(NodeGetMetadata);
   static NAN_METHOD(NodeQueryWatermarkOffsets);
   static NAN_METHOD(NodeOffsetsForTimes);

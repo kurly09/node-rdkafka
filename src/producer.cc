@@ -58,6 +58,7 @@ void Producer::Init(v8::Local<v8::Object> exports) {
    */
 
   Nan::SetPrototypeMethod(tpl, "onEvent", NodeOnEvent);
+  Nan::SetPrototypeMethod(tpl, "removeEvent", NodeRemoveEvent);
 
   /*
    * @brief Methods to do with establishing state
@@ -76,6 +77,7 @@ void Producer::Init(v8::Local<v8::Object> exports) {
    */
 
   Nan::SetPrototypeMethod(tpl, "onDeliveryReport", NodeOnDelivery);
+  Nan::SetPrototypeMethod(tpl, "removeDeliveryReport", NodeRemoveDelivery);
 
   /*
    * @brief Methods exposed to do with message production
@@ -560,6 +562,21 @@ NAN_METHOD(Producer::NodeOnDelivery) {
   }
 
   producer->m_dr_cb.dispatcher.AddCallback(cb);
+  info.GetReturnValue().Set(Nan::True());
+}
+
+NAN_METHOD(Producer::NodeRemoveDelivery) {
+  Nan::HandleScope scope;
+
+  if (info.Length() < 1 || !info[0]->IsFunction()) {
+    // Just throw an exception
+    return Nan::ThrowError("Need to specify a callback");
+  }
+
+  Producer* producer = ObjectWrap::Unwrap<Producer>(info.This());
+  v8::Local<v8::Function> cb = info[0].As<v8::Function>();
+
+  producer->m_dr_cb.dispatcher.RemoveCallback(cb);
   info.GetReturnValue().Set(Nan::True());
 }
 

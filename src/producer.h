@@ -90,6 +90,7 @@ class Producer : public Connection {
  private:
   static NAN_METHOD(NodeProduce);
   static NAN_METHOD(NodeOnDelivery);
+  static NAN_METHOD(NodeRemoveDelivery);
   static NAN_METHOD(NodeSetPartitioner);
   static NAN_METHOD(NodeConnect);
   static NAN_METHOD(NodeDisconnect);

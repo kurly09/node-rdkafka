@@ -485,6 +485,7 @@ void KafkaConsumer::Init(v8::Local<v8::Object> exports) {
    */
 
   Nan::SetPrototypeMethod(tpl, "onEvent", NodeOnEvent);
+  Nan::SetPrototypeMethod(tpl, "removeEvent", NodeRemoveEvent);
 
   /*
    * @brief Methods to do with establishing state
